@@ -11,5 +11,8 @@ export function getRandomFont() {
 }
 
 export function getRandomLineLength() {
-  return Math.floor(Math.random() * 10) + 2;
+  const min = 2;
+  const max = 4;
+
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
