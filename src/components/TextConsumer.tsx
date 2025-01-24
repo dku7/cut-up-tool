@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { getRandomFont } from "../utils/utils";
+import { getRandomFont, getRandomLineLength } from "../utils/utils";
 import { cutUpFormat, cutUpLength } from "../types/types";
 import Settings from "./Settings";
 
@@ -51,21 +51,25 @@ export default function TextConsumer() {
   }, [text, cutUpLength]);
 
   return (
-    <main className="flex flex-col px-10 md:px-20 lg:px-40">
-      <p>Enter text:</p>
-      <textarea
-        className="border border-black pl-0.5 h-96 w-full"
-        value={text}
-        onChange={handleTextChange}></textarea>
-      <div>
-        <Settings
-          cutUpLength={cutUpLength}
-          format={cutUpFormat}
-          handleMinWordsChange={handleMinWordsChange}
-          handleMaxWordsChange={handleMaxWordsChange}
-          handleFormatChange={handleFormatChange}
-        />
+    <main>
+      <div className="flex px-10 md:px-20 lg:px-40">
+        <p>Enter text:</p>
+        <textarea
+          className="border border-black pl-0.5 h-96 w-full font-mono"
+          value={text}
+          onChange={handleTextChange}></textarea>
+        <div className="mt-20">
+          <Settings
+            cutUpLength={cutUpLength}
+            format={cutUpFormat}
+            handleMinWordsChange={handleMinWordsChange}
+            handleMaxWordsChange={handleMaxWordsChange}
+            handleFormatChange={handleFormatChange}
+          />
+        </div>
+      </div>
 
+      <div>
         <button onClick={handleCutUpText}>Cut up text</button>
 
         <p className="leading-10">
@@ -73,7 +77,13 @@ export default function TextConsumer() {
             <span
               key={index}
               className={`border border-black m-4 text-xl ${getRandomFont()}`}>
-              {words}{" "}
+              {words}
+              {cutUpFormat === "verse" &&
+              index % getRandomLineLength() === 0 ? (
+                <br />
+              ) : (
+                " "
+              )}
             </span>
           ))}
         </p>
