@@ -48,21 +48,37 @@ export default function Settings(props: SettingsProps) {
         </div>
       </div>
       <div className="mt-20">
-        I like:
+        <span className="italic">show</span> as:{" "}
         <input
           type="radio"
           name="format"
-          id="Verse"
+          id="verse"
+          onChange={() => handleFormatChange("verse")}
+          checked={format === "verse"}
           className="appearance-none"
         />
-        <label htmlFor="Verse">Verse</label>
+        <label
+          htmlFor="verse"
+          className={`hover:cursor-pointer ${
+            format !== "verse" ? "line-through" : "font-bold text-xl underline"
+          }`}>
+          verse
+        </label>
         <input
           type="radio"
           name="format"
-          id="Prose"
+          id="prose"
+          onChange={() => handleFormatChange("prose")}
+          checked={format === "prose"}
           className="appearance-none"
         />
-        <label htmlFor="Prose">Prose</label>
+        <label
+          htmlFor="prose"
+          className={`hover:cursor-pointer ${
+            format !== "prose" ? "line-through" : "font-bold text-xl underline"
+          }`}>
+          prose
+        </label>{" "}
       </div>
     </div>
   );
