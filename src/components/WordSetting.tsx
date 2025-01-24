@@ -12,7 +12,7 @@ export default function WordSetting({
   handleChange,
 }: WordSettingProps) {
   return (
-    <>
+    <div className="flex font-mono my-2">
       <label htmlFor={settingType}>{`${settingType} words:`}</label>
       <input
         type="number"
@@ -21,6 +21,6 @@ export default function WordSetting({
         value={initialValue}
         className="border rounded w-10"
       />
-    </>
+    </div>
   );
 }
