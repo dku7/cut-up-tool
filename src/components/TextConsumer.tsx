@@ -37,6 +37,7 @@ export default function TextConsumer() {
         Math.random() * (cutUpLength.max - cutUpLength.min + 1) +
           cutUpLength.min
       );
+      console.log("len", len);
       const cut = words.splice(0, len);
       cutUpText.push(cut.join(" "));
     }
@@ -46,11 +47,23 @@ export default function TextConsumer() {
     setCutUpText(cutUpText);
   };
 
+  const getRandomFont = () => {
+    const fonts = [
+      "font-mono",
+      "font-serif",
+      "font-sans",
+      "font-cursive",
+      "font-display",
+    ];
+
+    return fonts[Math.floor(Math.random() * fonts.length)];
+  };
+
   return (
-    <>
+    <main className="flex flex-col px-10 md:px-20 lg:px-40">
       <p>Enter text:</p>
       <textarea
-        className="border border-black w-96 pl-0.5"
+        className="border border-black pl-0.5 h-96 w-full"
         value={text}
         onChange={handleTextChange}></textarea>
       <div>
@@ -71,14 +84,16 @@ export default function TextConsumer() {
 
         <button onClick={handleCutUpText}>Cut up text</button>
 
-        <div>
+        <p className="leading-10">
           {cutUpText.map((words, index) => (
-            <span key={index} className="border border-black m-2 font-mono">
+            <span
+              key={index}
+              className={`border border-black m-4 text-xl ${getRandomFont()}`}>
               {words}{" "}
             </span>
           ))}
-        </div>
+        </p>
       </div>
-    </>
+    </main>
   );
 }
