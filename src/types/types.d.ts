@@ -1,6 +1,6 @@
-export interface cutUpLength {
+export interface CutUpLength {
   min: number;
   max: number;
 }
 
-export type cutUpFormat = "verse" | "prose";
+export type CutUpFormat = "verse" | "prose";

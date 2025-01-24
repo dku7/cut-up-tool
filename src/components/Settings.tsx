@@ -1,11 +1,11 @@
-import { cutUpFormat, cutUpLength } from "../types/types";
+import { CutUpFormat, CutUpLength } from "../types/types";
 
 interface SettingsProps {
-  cutUpLength: cutUpLength;
-  format: cutUpFormat;
+  cutUpLength: CutUpLength;
+  format: CutUpFormat;
   handleMinWordsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleMaxWordsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleFormatChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleFormatChange: (format: CutUpFormat) => void;
 }
 
 export default function Settings(props: SettingsProps) {
@@ -20,38 +20,49 @@ export default function Settings(props: SettingsProps) {
   return (
     <div className="flex">
       <div>
-        <div className="flex rotate-45 ml-20 text-4xl">
-          <label htmlFor="min-words" className="border-b-2 border-b-black pl-2">
-            min words:
+        <div className="flex ml-10">
+          <label htmlFor="min-words" className="pl-2">
+            <span className="lowercase font-mono text-5xl">min</span>
+            <span className="font-serif text-2xl"> words:</span>
           </label>
           <input
             type="number"
             id="min-words"
             onChange={handleMinWordsChange}
             value={cutUpLength.min}
-            className="w-20 text-6xl"
+            className="w-20 text-6xl font-extrabold font-serif"
           />
         </div>
-        <div className="flex -rotate-45 font-serif text-4xl mt-20 ml-10 border-l-2 border-l-black pl-2">
-          <label htmlFor="max-words">max words:</label>
+        <div className="flex mt-10 ml-14 pl-2">
+          <label htmlFor="max-words">
+            <span className="uppercase font-sans text-6xl">max</span>
+            <span className="font-serif text-2xl"> words:</span>
+          </label>
           <input
             type="number"
             id="max-words"
             onChange={handleMaxWordsChange}
             value={cutUpLength.max}
-            className="w-20"
+            className="w-20 text-6xl font-extrabold font-serif"
           />
         </div>
       </div>
       <div className="mt-20">
-        <select
-          id="format"
-          value={format}
-          onChange={handleFormatChange}
-          className="font-cursive text-4xl rotate-90">
-          <option value="verse">Verse</option>
-          <option value="prose">Prose</option>
-        </select>
+        I like:
+        <input
+          type="radio"
+          name="format"
+          id="Verse"
+          className="appearance-none"
+        />
+        <label htmlFor="Verse">Verse</label>
+        <input
+          type="radio"
+          name="format"
+          id="Prose"
+          className="appearance-none"
+        />
+        <label htmlFor="Prose">Prose</label>
       </div>
     </div>
   );

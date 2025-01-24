@@ -4,11 +4,11 @@ import {
   getRandomFontStyle,
   getRandomLineLength,
 } from "../utils/utils";
-import { cutUpFormat, cutUpLength } from "../types/types";
+import { CutUpFormat, CutUpLength } from "../types/types";
 import Settings from "./Settings";
 import scissorsSVG from "../assets/scissors.svg";
 
-const defaultCutUpLength: cutUpLength = {
+const defaultCutUpLength: CutUpLength = {
   min: 1,
   max: 5,
 };
@@ -16,9 +16,9 @@ const defaultCutUpLength: cutUpLength = {
 export default function TextConsumer() {
   const [text, setText] = useState("");
   const [cutUpLength, setCutUpLength] =
-    useState<cutUpLength>(defaultCutUpLength);
+    useState<CutUpLength>(defaultCutUpLength);
   const [cutUpText, setCutUpText] = useState<string[]>([]);
-  const [cutUpFormat, setCutUpFormat] = useState<cutUpFormat>("verse");
+  const [cutUpFormat, setCutUpFormat] = useState<CutUpFormat>("verse");
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
@@ -32,8 +32,8 @@ export default function TextConsumer() {
     setCutUpLength({ ...cutUpLength, max: Number(event.target.value) });
   };
 
-  const handleFormatChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCutUpFormat(event.target.value as cutUpFormat);
+  const handleFormatChange = (format: CutUpFormat) => {
+    setCutUpFormat(format);
   };
 
   const handleCutUpText = useCallback(() => {
