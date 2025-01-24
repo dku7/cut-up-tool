@@ -11,7 +11,7 @@ interface SettingsProps {
 
 export default function Settings(props: SettingsProps) {
   const {
-    cutUpLength,
+    cutUpLength: { min, max },
     format,
     handleMinWordsChange,
     handleMaxWordsChange,
@@ -21,14 +21,8 @@ export default function Settings(props: SettingsProps) {
   return (
     <div className="border-2 border-black p-10">
       <h2 className="ml-10 font-extrabold text-3xl">settings</h2>
-      <InputWithLabel
-        inputValue={cutUpLength.min}
-        handleChange={handleMinWordsChange}
-      />
-      <InputWithLabel
-        inputValue={cutUpLength.max}
-        handleChange={handleMaxWordsChange}
-      />
+      <InputWithLabel inputValue={min} handleChange={handleMinWordsChange} />
+      <InputWithLabel inputValue={max} handleChange={handleMaxWordsChange} />
       show as:
       <input
         type="radio"
