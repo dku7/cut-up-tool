@@ -73,7 +73,7 @@ export default function TextConsumer() {
 
         <div>
           {cutUpText.map((words, index) => (
-            <span key={index} className="border border-black m-2">
+            <span key={index} className="border border-black m-2 font-mono">
               {words}{" "}
             </span>
           ))}
