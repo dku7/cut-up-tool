@@ -1,4 +1,5 @@
 import { CutUpFormat, CutUpLength } from "../types/types";
+import FormatOption from "./FormatOption";
 import WordSetting from "./WordSetting";
 
 interface SettingsProps {
@@ -19,35 +20,31 @@ export default function Settings(props: SettingsProps) {
   } = props;
 
   return (
-    <div>
-      <h2 className="ml-10 font-extrabold text-3xl">settings</h2>
-      <WordSetting
-        settingType="min"
-        initialValue={min}
-        handleChange={handleMinWordsChange}
+    <>
+      <h2 className="ml-10 font-bold text-2xl">settings</h2>
+      <div className="flex flex-col">
+        <WordSetting
+          settingType="min"
+          initialValue={min}
+          handleChange={handleMinWordsChange}
+        />
+        <WordSetting
+          settingType="max"
+          initialValue={max}
+          handleChange={handleMaxWordsChange}
+        />
+      </div>
+      show as:{" "}
+      <FormatOption
+        formatType={"verse"}
+        currentValue={format}
+        handleFormatChange={handleFormatChange}
       />
-      <WordSetting
-        settingType="max"
-        initialValue={max}
-        handleChange={handleMaxWordsChange}
+      <FormatOption
+        formatType={"prose"}
+        currentValue={format}
+        handleFormatChange={handleFormatChange}
       />
-      show as:
-      <input
-        type="radio"
-        name="format"
-        id="verse"
-        onChange={() => handleFormatChange("verse")}
-        checked={format === "verse"}
-      />
-      <label htmlFor="verse">verse</label>
-      <input
-        type="radio"
-        name="format"
-        id="prose"
-        onChange={() => handleFormatChange("prose")}
-        checked={format === "prose"}
-      />
-      <label htmlFor="prose">prose</label>
-    </div>
+    </>
   );
 }
