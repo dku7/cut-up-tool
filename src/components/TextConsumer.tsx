@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
-import getRandomFont from "../utils/getRandomFont";
-import { cutUpLength } from "../types/types";
+import { getRandomFont } from "../utils/utils";
+import { cutUpFormat, cutUpLength } from "../types/types";
 import Settings from "./Settings";
 
 const defaultCutUpLength: cutUpLength = {
@@ -13,6 +13,7 @@ export default function TextConsumer() {
   const [cutUpLength, setCutUpLength] =
     useState<cutUpLength>(defaultCutUpLength);
   const [cutUpText, setCutUpText] = useState<string[]>([]);
+  const [cutUpFormat, setCutUpFormat] = useState<cutUpFormat>("verse");
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
@@ -24,6 +25,10 @@ export default function TextConsumer() {
 
   const handleMaxWordsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCutUpLength({ ...cutUpLength, max: Number(event.target.value) });
+  };
+
+  const handleFormatChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setCutUpFormat(event.target.value as cutUpFormat);
   };
 
   const handleCutUpText = useCallback(() => {
@@ -55,8 +60,10 @@ export default function TextConsumer() {
       <div>
         <Settings
           cutUpLength={cutUpLength}
+          format={cutUpFormat}
           handleMinWordsChange={handleMinWordsChange}
           handleMaxWordsChange={handleMaxWordsChange}
+          handleFormatChange={handleFormatChange}
         />
 
         <button onClick={handleCutUpText}>Cut up text</button>

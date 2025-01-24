@@ -1,13 +1,21 @@
-import { cutUpLength } from "../types/types";
+import { cutUpFormat, cutUpLength } from "../types/types";
 
 interface SettingsProps {
   cutUpLength: cutUpLength;
+  format: cutUpFormat;
   handleMinWordsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleMaxWordsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFormatChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default function Settings(props: SettingsProps) {
-  const { cutUpLength, handleMinWordsChange, handleMaxWordsChange } = props;
+  const {
+    cutUpLength,
+    format,
+    handleMinWordsChange,
+    handleMaxWordsChange,
+    handleFormatChange,
+  } = props;
 
   return (
     <>
@@ -25,6 +33,11 @@ export default function Settings(props: SettingsProps) {
         onChange={handleMaxWordsChange}
         value={cutUpLength.max}
       />
+      <label htmlFor="format">Format:</label>
+      <select id="format" value={format} onChange={handleFormatChange}>
+        <option value="verse">Verse</option>
+        <option value="prose">Prose</option>
+      </select>
     </>
   );
 }
