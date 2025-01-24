@@ -4,3 +4,5 @@ export interface CutUpLength {
 }
 
 export type CutUpFormat = "verse" | "prose";
+
+export type WordSettingType = "min" | "max";
