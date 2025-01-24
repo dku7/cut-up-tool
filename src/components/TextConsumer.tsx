@@ -22,11 +22,11 @@ export default function TextConsumer() {
   };
 
   const handleMinWordsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCutUpLength({ min: parseInt(event.target.value), max: cutUpLength.max });
+    setCutUpLength({ min: Number(event.target.value), max: cutUpLength.max });
   };
 
   const handleMaxWordsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCutUpLength({ min: cutUpLength.min, max: parseInt(event.target.value) });
+    setCutUpLength({ min: cutUpLength.min, max: Number(event.target.value) });
   };
 
   const handleCutUpText = () => {
