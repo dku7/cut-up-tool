@@ -1,7 +1,12 @@
 import { useCallback, useState } from "react";
-import { getRandomFont, getRandomLineLength } from "../utils/utils";
+import {
+  getRandomFont,
+  getRandomFontStyle,
+  getRandomLineLength,
+} from "../utils/utils";
 import { cutUpFormat, cutUpLength } from "../types/types";
 import Settings from "./Settings";
+import scissorsSVG from "../assets/scissors.svg";
 
 const defaultCutUpLength: cutUpLength = {
   min: 1,
@@ -52,13 +57,13 @@ export default function TextConsumer() {
 
   return (
     <main>
-      <div className="flex px-10 md:px-20 lg:px-40">
+      <div className="flex flex-col lg:flex-row px-10 md:px-20 lg:px-40">
         <p>Enter text:</p>
         <textarea
-          className="border border-black pl-0.5 h-96 w-full font-mono"
+          className="border border-gray-800 border-dashed pl-0.5 w-full font-mono h-fit min-h-96"
           value={text}
           onChange={handleTextChange}></textarea>
-        <div className="mt-20">
+        <div className="mt-2 mb-10">
           <Settings
             cutUpLength={cutUpLength}
             format={cutUpFormat}
@@ -66,17 +71,21 @@ export default function TextConsumer() {
             handleMaxWordsChange={handleMaxWordsChange}
             handleFormatChange={handleFormatChange}
           />
+          <button
+            onClick={handleCutUpText}
+            className="hover:cursor-pointer w-32 mt-10 ml-10 border rounded-md border-dotted border-black hover:shadow-lg hover:border-solid hover:border-2">
+            <img src={scissorsSVG} alt="scissors" />
+            snip snip
+          </button>
         </div>
       </div>
 
-      <div>
-        <button onClick={handleCutUpText}>Cut up text</button>
-
+      <div className="flex px-10 md:px-20 lg:px-40 flex-col">
         <p className="leading-10">
           {cutUpText.map((words, index) => (
             <span
               key={index}
-              className={`border border-black m-4 text-xl ${getRandomFont()}`}>
+              className={`border border-black m-4 text-xl ${getRandomFont()} ${getRandomFontStyle()}`}>
               {words}
               {cutUpFormat === "verse" &&
               index % getRandomLineLength() === 0 ? (

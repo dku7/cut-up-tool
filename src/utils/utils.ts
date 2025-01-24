@@ -16,3 +16,9 @@ export function getRandomLineLength() {
 
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+export function getRandomFontStyle() {
+  const styles = ["font-semibold", "font-normal", "font-light"];
+
+  return styles[Math.floor(Math.random() * styles.length)];
+}
