@@ -1,13 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import getRandomFont from "../utils/getRandomFont";
-
-interface cutUpLength {
-  min: number;
-  max: number;
-}
+import { cutUpLength } from "../types/types";
+import Settings from "./Settings";
 
 const defaultCutUpLength: cutUpLength = {
-  min: 3,
+  min: 1,
   max: 5,
 };
 
@@ -22,14 +19,14 @@ export default function TextConsumer() {
   };
 
   const handleMinWordsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCutUpLength({ min: Number(event.target.value), max: cutUpLength.max });
+    setCutUpLength({ ...cutUpLength, min: Number(event.target.value) });
   };
 
   const handleMaxWordsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCutUpLength({ min: cutUpLength.min, max: Number(event.target.value) });
+    setCutUpLength({ ...cutUpLength, max: Number(event.target.value) });
   };
 
-  const handleCutUpText = () => {
+  const handleCutUpText = useCallback(() => {
     const words = text.split(" ");
     const cutUpText: string[] = [];
 
@@ -46,7 +43,7 @@ export default function TextConsumer() {
     cutUpText.sort(() => Math.random() - 0.5);
 
     setCutUpText(cutUpText);
-  };
+  }, [text, cutUpLength]);
 
   return (
     <main className="flex flex-col px-10 md:px-20 lg:px-40">
@@ -56,19 +53,10 @@ export default function TextConsumer() {
         value={text}
         onChange={handleTextChange}></textarea>
       <div>
-        <label htmlFor="min-words">min words:</label>
-        <input
-          type="number"
-          id="min-words"
-          onChange={handleMinWordsChange}
-          value={cutUpLength.min}
-        />
-        <label htmlFor="max-words">max words:</label>
-        <input
-          type="number"
-          id="max-words"
-          onChange={handleMaxWordsChange}
-          value={cutUpLength.max}
+        <Settings
+          cutUpLength={cutUpLength}
+          handleMinWordsChange={handleMinWordsChange}
+          handleMaxWordsChange={handleMaxWordsChange}
         />
 
         <button onClick={handleCutUpText}>Cut up text</button>
