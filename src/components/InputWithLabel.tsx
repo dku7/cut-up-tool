@@ -15,6 +15,7 @@ export default function InputWithLabel({
         id="min-words"
         onChange={handleChange}
         value={inputValue}
+        className="border rounded w-10"
       />
     </>
   );
