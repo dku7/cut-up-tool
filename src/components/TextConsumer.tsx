@@ -1,4 +1,5 @@
 import { useState } from "react";
+import getRandomFont from "../utils/getRandomFont";
 
 interface cutUpLength {
   min: number;
@@ -37,7 +38,7 @@ export default function TextConsumer() {
         Math.random() * (cutUpLength.max - cutUpLength.min + 1) +
           cutUpLength.min
       );
-      console.log("len", len);
+
       const cut = words.splice(0, len);
       cutUpText.push(cut.join(" "));
     }
@@ -45,18 +46,6 @@ export default function TextConsumer() {
     cutUpText.sort(() => Math.random() - 0.5);
 
     setCutUpText(cutUpText);
-  };
-
-  const getRandomFont = () => {
-    const fonts = [
-      "font-mono",
-      "font-serif",
-      "font-sans",
-      "font-cursive",
-      "font-display",
-    ];
-
-    return fonts[Math.floor(Math.random() * fonts.length)];
   };
 
   return (
