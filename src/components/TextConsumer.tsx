@@ -4,6 +4,7 @@ import { CutUpFormat, CutUpLength } from "../types/types";
 import Settings from "./Settings";
 import scissorsSVG from "../assets/scissors.svg";
 import { CutUpOutput } from "./CutUpOutput";
+import { CopyButton } from "./CopyButton";
 
 const defaultCutUpLength: CutUpLength = {
   min: 1,
@@ -74,6 +75,7 @@ export default function TextConsumer() {
             <img src={scissorsSVG} alt="scissors" />
             snip snip
           </button>
+          <CopyButton cutUpText={cutUpText} />
         </div>
       </div>
 
