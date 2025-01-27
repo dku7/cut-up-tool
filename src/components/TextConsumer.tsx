@@ -4,6 +4,8 @@ import { CutUpFormat, CutUpLength } from "../types/types";
 import Settings from "./Settings";
 import scissorsSVG from "../assets/scissors.svg";
 import { CutUpOutput } from "./CutUpOutput";
+import { CopyButton } from "./CopyButton";
+import { getRandomLineLength } from "../utils/utils";
 
 const defaultCutUpLength: CutUpLength = {
   min: 1,
@@ -11,14 +13,14 @@ const defaultCutUpLength: CutUpLength = {
 };
 
 export default function TextConsumer() {
-  const [text, setText] = useState("");
+  const [inputText, setInputText] = useState("");
   const [cutUpLength, setCutUpLength] =
     useState<CutUpLength>(defaultCutUpLength);
   const [cutUpText, setCutUpText] = useState<string[]>([]);
   const [cutUpFormat, setCutUpFormat] = useState<CutUpFormat>("verse");
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
+    setInputText(event.target.value);
   };
 
   const handleMinWordsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +36,7 @@ export default function TextConsumer() {
   };
 
   const handleCutUpText = useCallback(() => {
-    const words = text.split(" ");
+    const words = inputText.split(" ");
     const cutUpText: string[] = [];
 
     while (words.length > 0) {
@@ -44,13 +46,20 @@ export default function TextConsumer() {
       );
 
       const cut = words.splice(0, len);
+
       cutUpText.push(cut.join(" "));
     }
 
     cutUpText.sort(() => Math.random() - 0.5);
 
-    setCutUpText(cutUpText);
-  }, [text, cutUpLength]);
+    if (cutUpFormat === "verse") {
+      const formattedCutUpText = cutUpText.map((words, index) => {
+        return index % getRandomLineLength() === 0 ? words + "\n" : words;
+      });
+
+      setCutUpText(formattedCutUpText);
+    } else setCutUpText(cutUpText);
+  }, [cutUpFormat, cutUpLength, inputText]);
 
   return (
     <main>
@@ -58,7 +67,7 @@ export default function TextConsumer() {
         <p>Enter text:</p>
         <textarea
           className="border border-gray-800 border-dashed pl-0.5 w-full font-mono flex-grow min-h-96 resize-none"
-          value={text}
+          value={inputText}
           onChange={handleTextChange}></textarea>
         <div className="mt-2 mb-10">
           <Settings
@@ -74,6 +83,7 @@ export default function TextConsumer() {
             <img src={scissorsSVG} alt="scissors" />
             snip snip
           </button>
+          <CopyButton cutUpText={cutUpText} />
         </div>
       </div>
 
