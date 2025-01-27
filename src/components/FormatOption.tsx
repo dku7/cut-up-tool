@@ -12,7 +12,7 @@ export default function FormatOption({
   handleFormatChange,
 }: FormatOptionProps) {
   return (
-    <>
+    <div className="font-mono">
       <input
         type="radio"
         name="format"
@@ -20,7 +20,9 @@ export default function FormatOption({
         onChange={() => handleFormatChange(formatType)}
         checked={currentValue === formatType}
       />
-      <label htmlFor={formatType}>{formatType}</label>
-    </>
+      <label htmlFor={formatType} className="px-2">
+        {formatType}
+      </label>
+    </div>
   );
 }
