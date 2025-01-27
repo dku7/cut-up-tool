@@ -1,12 +1,9 @@
 import { useCallback, useState } from "react";
-import {
-  getRandomFont,
-  getRandomFontStyle,
-  getRandomLineLength,
-} from "../utils/utils";
+
 import { CutUpFormat, CutUpLength } from "../types/types";
 import Settings from "./Settings";
 import scissorsSVG from "../assets/scissors.svg";
+import { CutUpOutput } from "./CutUpOutput";
 
 const defaultCutUpLength: CutUpLength = {
   min: 1,
@@ -81,21 +78,7 @@ export default function TextConsumer() {
       </div>
 
       <div className="flex px-10 md:px-20 lg:px-40 flex-col">
-        <p className="leading-10">
-          {cutUpText.map((words, index) => (
-            <span
-              key={index}
-              className={`border border-black m-4 text-xl ${getRandomFont()} ${getRandomFontStyle()}`}>
-              {words}
-              {cutUpFormat === "verse" &&
-              index % getRandomLineLength() === 0 ? (
-                <br />
-              ) : (
-                " "
-              )}
-            </span>
-          ))}
-        </p>
+        <CutUpOutput cutUpText={cutUpText} cutUpFormat={cutUpFormat} />
       </div>
     </main>
   );
