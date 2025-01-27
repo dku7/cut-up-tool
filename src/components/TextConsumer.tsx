@@ -5,6 +5,7 @@ import Settings from "./Settings";
 import scissorsSVG from "../assets/scissors.svg";
 import { CutUpOutput } from "./CutUpOutput";
 import { CopyButton } from "./CopyButton";
+import { getRandomLineLength } from "../utils/utils";
 
 const defaultCutUpLength: CutUpLength = {
   min: 1,
@@ -45,13 +46,20 @@ export default function TextConsumer() {
       );
 
       const cut = words.splice(0, len);
+
       cutUpText.push(cut.join(" "));
     }
 
     cutUpText.sort(() => Math.random() - 0.5);
 
-    setCutUpText(cutUpText);
-  }, [inputText, cutUpLength]);
+    if (cutUpFormat === "verse") {
+      const formattedCutUpText = cutUpText.map((words, index) => {
+        return index % getRandomLineLength() === 0 ? words + "\n" : words;
+      });
+
+      setCutUpText(formattedCutUpText);
+    } else setCutUpText(cutUpText);
+  }, [cutUpFormat, cutUpLength, inputText]);
 
   return (
     <main>
