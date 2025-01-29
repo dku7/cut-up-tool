@@ -17,7 +17,9 @@ export default function FormatOption({
         type="radio"
         name="format"
         id={formatType}
-        onChange={() => handleFormatChange(formatType)}
+        onChange={() => {
+          handleFormatChange(formatType);
+        }}
         checked={currentValue === formatType}
       />
       <label htmlFor={formatType} className="px-2">

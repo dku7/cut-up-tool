@@ -2,7 +2,6 @@ import { useCallback, useState } from "react";
 
 import { CutUpFormat, CutUpLength } from "../types/types";
 import Settings from "./Settings";
-import scissorsSVG from "../assets/scissors.svg";
 import { CutUpOutput } from "./CutUpOutput";
 import { CopyButton } from "./CopyButton";
 import { getRandomLineLength } from "../utils/utils";
@@ -69,7 +68,7 @@ export default function TextConsumer() {
           className="border border-gray-800 border-dashed pl-0.5 w-full font-mono flex-grow min-h-96 resize-none"
           value={inputText}
           onChange={handleTextChange}></textarea>
-        <div className="mt-2 mb-10">
+        <div className="mt-2 mb-10 ml-10">
           <Settings
             cutUpLength={cutUpLength}
             format={cutUpFormat}
@@ -79,9 +78,8 @@ export default function TextConsumer() {
           />
           <button
             onClick={handleCutUpText}
-            className="hover:cursor-pointer w-32 mt-10 ml-10 border rounded-md border-dotted border-black hover:shadow-lg hover:border-solid hover:border-2">
-            <img src={scissorsSVG} alt="scissors" />
-            snip snip
+            className="border p-2 rounded hover:cursor-pointer mr-4 mb-4">
+            Cut up
           </button>
           <CopyButton cutUpText={cutUpText} />
         </div>

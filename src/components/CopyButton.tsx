@@ -8,7 +8,7 @@ export const CopyButton = memo(function CopyButton({
   cutUpText,
 }: CopyButtonProps) {
   const handleCopy = () => {
-    navigator.clipboard.writeText(cutUpText.join(" "));
+    void navigator.clipboard.writeText(cutUpText.join(" "));
   };
 
   return (
