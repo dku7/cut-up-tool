@@ -52,7 +52,7 @@ export default function TextConsumer({
         <p>Enter text:</p>
         <div className="flex flex-col lg:flex-row px-10 md:px-20 lg:px-40">
           <textarea
-            className="border border-gray-800 border-dashed pl-0.5 w-full font-mono flex-grow min-h-96 resize-none"
+            className="border border-gray-800 border-dashed pl-0.5 w-full font-mono flex-grow min-h-96 resize-none min-w-96"
             value={inputText}
             onChange={handleTextChange}></textarea>
         </div>
