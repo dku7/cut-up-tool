@@ -56,7 +56,7 @@ export default function TextConsumer({
         onChange={handleTextChange}></textarea>
 
       <CutUpButton disabled={!inputText} handleCutUpText={handleCutUpText} />
-      <CopyButton cutUpText={cutUpText} />
+      <CopyButton disabled={cutUpText.length === 0} cutUpText={cutUpText} />
 
       <CutUpOutput cutUpText={cutUpText} cutUpFormat={cutUpFormat} />
     </main>
