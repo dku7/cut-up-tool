@@ -29,7 +29,7 @@ export const Settings = memo(function Settings(props: SettingsProps) {
       <div className="flex justify-end">
         {isSideBarOpen && (
           <button
-            className="text-white cursor-pointer"
+            className="text-white cursor-pointer md:hidden"
             onClick={() => {
               handleToggleSideBar(false);
             }}>
