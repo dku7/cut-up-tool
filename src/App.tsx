@@ -34,10 +34,10 @@ export default function App() {
 
   return (
     <>
-      <div id="container" className="flex h-screen relative">
+      <div id="container" className="flex min-h-screen relative">
         <aside
           id="side-bar"
-          className={`fixed top-0 left-0 h-screen text-white bg-gray-800 p-5 pt-8 w-[250px] 
+          className={`fixed top-0 left-0 min-h-screen text-white bg-gray-800 p-5 pt-8 w-[250px] 
           md:relative md:translate-x-0 md:w-[250px] transition-transform duration-300 ${
             isSideBarOpen ? "translate-x-0" : "-translate-x-full"
           }`}>
@@ -55,7 +55,7 @@ export default function App() {
         </aside>
         <main
           id="content"
-          className="flex-1 h-screen p-5 ml-0 transition-all duration-300">
+          className="flex-1 min-h-screen p-5 ml-0 transition-all duration-300">
           <div className="flex justify-center">
             {!isSideBarOpen && (
               <button
