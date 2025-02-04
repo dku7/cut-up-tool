@@ -13,7 +13,6 @@ export default function TextConsumer({
   cutUpFormat,
 }: TextConsumerProps) {
   const [inputText, setInputText] = useState("");
-
   const [cutUpText, setCutUpText] = useState<string[]>([]);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -48,25 +47,21 @@ export default function TextConsumer({
 
   return (
     <main>
-      <div className="">
-        <p>Enter text:</p>
-        <div className="">
-          <textarea
-            className="border border-gray-800 border-dashed pl-0.5 w-full font-mono flex-grow min-h-96 resize-none min-w-96"
-            value={inputText}
-            onChange={handleTextChange}></textarea>
-        </div>
-        <div className="">
-          <button
-            onClick={handleCutUpText}
-            className="border p-2 rounded hover:cursor-pointer mr-4 mb-4">
-            Cut up
-          </button>
-          <CopyButton cutUpText={cutUpText} />
+      <p>Enter text:</p>
 
-          <CutUpOutput cutUpText={cutUpText} cutUpFormat={cutUpFormat} />
-        </div>
-      </div>
+      <textarea
+        className="border border-gray-800 border-dashed pl-0.5 w-full font-mono flex-grow min-h-96 resize-none min-w-96"
+        value={inputText}
+        onChange={handleTextChange}></textarea>
+
+      <button
+        onClick={handleCutUpText}
+        className="border p-2 rounded hover:cursor-pointer mr-4 mb-4">
+        Cut up
+      </button>
+      <CopyButton cutUpText={cutUpText} />
+
+      <CutUpOutput cutUpText={cutUpText} cutUpFormat={cutUpFormat} />
     </main>
   );
 }
