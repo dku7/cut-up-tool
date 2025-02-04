@@ -19,7 +19,7 @@ export default function WordSetting({
         id={settingType}
         onChange={handleChange}
         value={initialValue}
-        className="border rounded w-10"
+        className="border rounded w-10 pl-2.5"
       />
     </div>
   );
