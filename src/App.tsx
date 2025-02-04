@@ -14,7 +14,7 @@ export default function App() {
   const [cutUpLength, setCutUpLength] =
     useState<CutUpLength>(defaultCutUpLength);
   const [cutUpFormat, setCutUpFormat] = useState<CutUpFormat>("verse");
-  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const handleMinWordsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCutUpLength({ ...cutUpLength, min: Number(event.target.value) });
