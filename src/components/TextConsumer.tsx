@@ -3,6 +3,7 @@ import { CutUpOutput } from "./CutUpOutput";
 import { CopyButton } from "./CopyButton";
 import { getRandomLineLength } from "../utils/utils";
 import { CutUpFormat, CutUpLength } from "../types/types";
+import { CutUpButton } from "./CutUpButton";
 
 interface TextConsumerProps {
   cutUpLength: CutUpLength;
@@ -54,11 +55,7 @@ export default function TextConsumer({
         value={inputText}
         onChange={handleTextChange}></textarea>
 
-      <button
-        onClick={handleCutUpText}
-        className="border p-2 rounded hover:cursor-pointer mr-4 mb-4">
-        Cut up
-      </button>
+      <CutUpButton disabled={!inputText} handleCutUpText={handleCutUpText} />
       <CopyButton cutUpText={cutUpText} />
 
       <CutUpOutput cutUpText={cutUpText} cutUpFormat={cutUpFormat} />
