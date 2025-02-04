@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Header from "./components/Header";
-import Settings from "./components/Settings";
+import { Settings } from "./components/Settings";
 import TextConsumer from "./components/TextConsumer";
 import { CutUpFormat, CutUpLength } from "./types/types";
 import { FiMenu } from "react-icons/fi";
@@ -14,7 +14,7 @@ export default function App() {
   const [cutUpLength, setCutUpLength] =
     useState<CutUpLength>(defaultCutUpLength);
   const [cutUpFormat, setCutUpFormat] = useState<CutUpFormat>("verse");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
 
   const handleMinWordsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCutUpLength({ ...cutUpLength, min: Number(event.target.value) });
@@ -28,34 +28,49 @@ export default function App() {
     setCutUpFormat(format);
   };
 
-  const handleToggleSideBar = (isOpen: boolean) => {
-    setIsSidebarOpen(isOpen);
+  const handleToggleSideBar = (open: boolean) => {
+    setIsSideBarOpen(open);
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] min-h-screen">
-      <div className="mt-2 mb-10 ml-10">
-        <Settings
-          cutUpLength={cutUpLength}
-          format={cutUpFormat}
-          isSidebarOpen={isSidebarOpen}
-          handleMinWordsChange={handleMinWordsChange}
-          handleMaxWordsChange={handleMaxWordsChange}
-          handleFormatChange={handleFormatChange}
-          handleToggleSideBar={handleToggleSideBar}
-        />
+    <>
+      <div id="container" className="flex h-screen relative">
+        <aside
+          id="side-bar"
+          className={`fixed top-0 left-0 h-screen text-white bg-gray-800 p-5 pt-8 w-[250px] 
+          md:relative md:translate-x-0 md:w-[250px] transition-transform duration-300 ${
+            isSideBarOpen ? "translate-x-0" : "-translate-x-full"
+          }`}>
+          <div className="px-10">
+            <Settings
+              cutUpLength={cutUpLength}
+              format={cutUpFormat}
+              isSideBarOpen={isSideBarOpen}
+              handleMinWordsChange={handleMinWordsChange}
+              handleMaxWordsChange={handleMaxWordsChange}
+              handleFormatChange={handleFormatChange}
+              handleToggleSideBar={handleToggleSideBar}
+            />
+          </div>
+        </aside>
+        <main
+          id="content"
+          className="flex-1 h-screen p-5 ml-0 transition-all duration-300">
+          <div className="flex justify-center">
+            {!isSideBarOpen && (
+              <button
+                className="absolute top-5 left-5 text-red-700 md:hidden cursor-pointer"
+                onClick={() => {
+                  handleToggleSideBar(true);
+                }}>
+                <FiMenu size={24} />
+              </button>
+            )}
+            <Header />
+          </div>
+          <TextConsumer cutUpLength={cutUpLength} cutUpFormat={cutUpFormat} />
+        </main>
       </div>
-      <div className="p-5 md:ml-64">
-        <button
-          onClick={() => {
-            handleToggleSideBar(true);
-          }}
-          className="md:hidden mb-4 text-gray-700">
-          <FiMenu size={24} />
-        </button>
-        <Header />
-        <TextConsumer cutUpLength={cutUpLength} cutUpFormat={cutUpFormat} />
-      </div>
-    </div>
+    </>
   );
 }

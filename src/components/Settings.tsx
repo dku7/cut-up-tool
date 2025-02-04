@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { CutUpFormat, CutUpLength } from "../types/types";
 import FormatOption from "./FormatOption";
 import WordSetting from "./WordSetting";
@@ -5,18 +6,18 @@ import WordSetting from "./WordSetting";
 interface SettingsProps {
   cutUpLength: CutUpLength;
   format: CutUpFormat;
-  isSidebarOpen: boolean;
+  isSideBarOpen: boolean;
   handleMinWordsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleMaxWordsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFormatChange: (format: CutUpFormat) => void;
-  handleToggleSideBar: (isOpen: boolean) => void;
+  handleToggleSideBar: (open: boolean) => void;
 }
 
-export default function Settings(props: SettingsProps) {
+export const Settings = memo(function Settings(props: SettingsProps) {
   const {
     cutUpLength: { min, max },
     format,
-    isSidebarOpen,
+    isSideBarOpen,
     handleMinWordsChange,
     handleMaxWordsChange,
     handleFormatChange,
@@ -24,21 +25,20 @@ export default function Settings(props: SettingsProps) {
   } = props;
 
   return (
-    <aside
-      className={`fixed inset-y-0 left-0 z-20 w-64 bg-gray-800 text-white p-5 transition-transform ${
-        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } md:relative md:translate-x-0`}>
-      <div className="flex justify-between items-center">
-        <h2 className="ml-10 font-bold text-2xl">settings</h2>
-        <button
-          className="md:hidden text-gray-300 hover:text-white"
-          onClick={() => {
-            handleToggleSideBar(false);
-          }}>
-          X
-        </button>
+    <div className="flex flex-col">
+      <div className="flex justify-end">
+        {isSideBarOpen && (
+          <button
+            className="text-white cursor-pointer"
+            onClick={() => {
+              handleToggleSideBar(false);
+            }}>
+            X
+          </button>
+        )}
       </div>
-      <div className="grid grid-cols-1 gap-4 mt-5">
+      <h2 className="font-bold text-2xl">settings</h2>
+      <div>
         <WordSetting
           settingType="min"
           initialValue={min}
@@ -61,6 +61,6 @@ export default function Settings(props: SettingsProps) {
         currentValue={format}
         handleFormatChange={handleFormatChange}
       />
-    </aside>
+    </div>
   );
-}
+});

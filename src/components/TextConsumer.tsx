@@ -48,15 +48,15 @@ export default function TextConsumer({
 
   return (
     <main>
-      <div className="px-10 md:px-20 lg:px-40">
+      <div className="">
         <p>Enter text:</p>
-        <div className="flex flex-col lg:flex-row px-10 md:px-20 lg:px-40">
+        <div className="">
           <textarea
             className="border border-gray-800 border-dashed pl-0.5 w-full font-mono flex-grow min-h-96 resize-none min-w-96"
             value={inputText}
             onChange={handleTextChange}></textarea>
         </div>
-        <div className="px-10 md:px-20 lg:px-40">
+        <div className="">
           <button
             onClick={handleCutUpText}
             className="border p-2 rounded hover:cursor-pointer mr-4 mb-4">
