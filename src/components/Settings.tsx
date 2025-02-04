@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { CutUpFormat, CutUpLength } from "../types/types";
 import FormatOption from "./FormatOption";
 import WordSetting from "./WordSetting";
@@ -5,24 +6,39 @@ import WordSetting from "./WordSetting";
 interface SettingsProps {
   cutUpLength: CutUpLength;
   format: CutUpFormat;
+  isSideBarOpen: boolean;
   handleMinWordsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleMaxWordsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFormatChange: (format: CutUpFormat) => void;
+  handleToggleSideBar: (open: boolean) => void;
 }
 
-export default function Settings(props: SettingsProps) {
+export const Settings = memo(function Settings(props: SettingsProps) {
   const {
     cutUpLength: { min, max },
     format,
+    isSideBarOpen,
     handleMinWordsChange,
     handleMaxWordsChange,
     handleFormatChange,
+    handleToggleSideBar,
   } = props;
 
   return (
-    <>
-      <h2 className="ml-10 font-bold text-2xl">settings</h2>
-      <div className="flex flex-col">
+    <div className="flex flex-col">
+      <div className="flex justify-end">
+        {isSideBarOpen && (
+          <button
+            className="text-white cursor-pointer"
+            onClick={() => {
+              handleToggleSideBar(false);
+            }}>
+            X
+          </button>
+        )}
+      </div>
+      <h2 className="font-bold text-2xl">settings</h2>
+      <div>
         <WordSetting
           settingType="min"
           initialValue={min}
@@ -45,6 +61,6 @@ export default function Settings(props: SettingsProps) {
         currentValue={format}
         handleFormatChange={handleFormatChange}
       />
-    </>
+    </div>
   );
-}
+});
